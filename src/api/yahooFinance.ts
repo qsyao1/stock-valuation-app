@@ -5,18 +5,18 @@ const CACHE_KEY_PREFIX = 'stock_cache_';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 let lastError = '';
 
-// 后端 API 地址 — 本地开发用 localhost，局域网用本机 IP
+// 云端后端（App 独立运行，无需本地服务器）
+const CLOUD_API = 'https://stock-valuation-app-bdn0.onrender.com';
+// 本地开发后端
+const LOCAL_API = 'http://localhost:8765';
+
 const API_BASE = (() => {
-  // Capacitor 原生平台：用局域网 IP
-  try {
-    if ((window as any).Capacitor?.isNativePlatform?.()) {
-      // 在 Android WebView 中，10.0.2.2 映射到宿主机 localhost
-      return 'http://10.0.2.2:8765';
-    }
-  } catch {}
-  // 浏览器：用当前 hostname
-  const host = window.location.hostname || 'localhost';
-  return `http://${host}:8765`;
+  // 本地开发环境：用 localhost
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return LOCAL_API;
+  }
+  // 其他情况（手机 App、网页版）：用云端
+  return CLOUD_API;
 })();
 
 export function getLastError(): string { return lastError; }

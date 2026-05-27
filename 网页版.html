@@ -127,9 +127,11 @@ function getKey() { return localStorage.getItem(LS_KEY) || '5OHHDNQZ88ZB4MAD'; }
 function getBackend() {
   const saved = localStorage.getItem(LS_BE);
   if (saved) return saved;
-  // 自动检测：如果当前页面是从 localhost 或局域网访问，尝试同 hostname 的 8765 端口
-  const host = location.hostname || 'localhost';
-  return `http://${host}:8765`;
+  // 本地开发用 localhost，否则用云端
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    return 'http://localhost:8765';
+  }
+  return 'https://stock-valuation-app-bdn0.onrender.com';
 }
 
 async function fetchBackend(syms) {
