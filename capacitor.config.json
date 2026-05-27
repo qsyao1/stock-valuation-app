@@ -1,0 +1,19 @@
+{
+  "appId": "com.yao.stockvaluation",
+  "appName": "股票估值追踪 v1.0",
+  "webDir": "dist",
+  "backgroundColor": "#0f172a",
+  "server": {
+    "androidScheme": "https",
+    "allowNavigation": [
+      "query1.finance.yahoo.com",
+      "query2.finance.yahoo.com"
+    ]
+  },
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": true
+  },
+  "plugins": {}
+}
